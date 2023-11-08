@@ -56,14 +56,30 @@ const images = [
         alt: 'Group of Horses Running',
     },
 ];
-images.map(image => {
-    const li = document.createElement('li');
-    const img = document.createElement('img');
-    img.src = image.url;
-    img.alt = image.alt;
-    li.append(img);
-    galleryList.insertAdjacentHTML('beforeend', li);
-});
-console.log(galleryList);
+const makeMarkup = (images) => {
+    return `<li><img src = '${images.url}' alt = '${images.alt}' width = '500px'></li>`
+};
+const map = images.map(makeMarkup).join('');
+galleryList.insertAdjacentHTML('beforeend', map);
 
 // 4.
+
+const counter = document.getElementById('counter');
+const valueElement = document.getElementById('value');
+let counterValue = 0;
+valueElement.textContent = counterValue;
+function increment() {
+    counterValue++;
+    valueElement.textContent = counterValue;
+};
+function decrement() {
+    counterValue--;
+    valueElement.textContent = counterValue;
+};
+counter.addEventListener('click', (event) => {
+    if (event.target.dataset.action === 'increment') {
+        increment();
+    } else if (event.target.dataset.action === 'decrement') {
+        decrement();
+    }
+});
